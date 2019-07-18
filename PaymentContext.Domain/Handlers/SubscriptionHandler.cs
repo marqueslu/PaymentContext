@@ -117,7 +117,11 @@ namespace PaymentContext.Domain.handlers
 
             subscription.AddPayment(payment);
             student.AddSubscription(subscription);
+
             AddNotifications(name, document, email, address, student, subscription, payment);
+            
+            if (Invalid)
+                return new CommandResult(false, "Não foi possível realizar a sua assinatura");
 
             _studentRepository.CreateSubscription(student);
 
